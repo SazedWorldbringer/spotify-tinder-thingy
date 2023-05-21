@@ -1,6 +1,10 @@
 export const navItems = {
 	mainNav: [
 		{
+			title: "Home",
+			href: "/"
+		},
+		{
 			title: "Match",
 			href: "/match",
 		},
