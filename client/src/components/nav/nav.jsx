@@ -15,7 +15,7 @@ function MainNav({ items }) {
 						<NavLink
 							key={index}
 							to={item.disabled ? "#" : item.href}
-							class={
+							className={
 								({ isActive }) => isActive
 									? "flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm text-foreground"
 									: "flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm text-foreground/60"
