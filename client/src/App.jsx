@@ -1,14 +1,26 @@
-import Footer from "./components/footer/footer"
-import Nav from "./components/nav/nav"
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import Matches from './pages/match.jsx'
+import ErrorPage from './pages/error.jsx'
+import Layout from './layout.jsx'
 
-const App = ({ children }) => {
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/match",
+        element: <Matches />,
+      }
+    ]
+  },
+])
+
+const App = () => {
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="container z-40 bg-background">
-        <Nav />
-      </header>
-      <main className="flex-1">{children}</main>
-      <Footer />
+    <div>
+      <RouterProvider router={router} />
     </div>
   )
 }
