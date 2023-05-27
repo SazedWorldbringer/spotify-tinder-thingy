@@ -1,7 +1,10 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import Matches from './pages/match.jsx'
-import ErrorPage from './pages/error.jsx'
 import Layout from './layout.jsx'
+import ErrorPage from './pages/error.jsx'
+import Matches from './pages/match.jsx'
+import InboxPage from './pages/inbox.jsx'
+import YouPage from './pages/you.jsx'
+import Login from './pages/login.jsx'
 
 const router = createBrowserRouter([
   {
@@ -12,6 +15,18 @@ const router = createBrowserRouter([
       {
         path: "/match",
         element: <Matches />,
+      },
+      {
+        path: "/inbox",
+        element: <InboxPage />
+      },
+      {
+        path: "/you",
+        element: <YouPage />
+      },
+      {
+        path: "/login",
+        element: <Login />
       }
     ]
   },

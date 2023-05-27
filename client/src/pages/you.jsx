@@ -1,4 +1,4 @@
-export default function You() {
+export default function YouPage() {
   return (
   <h1>You</h1>
   )
