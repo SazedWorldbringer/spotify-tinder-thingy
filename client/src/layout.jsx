@@ -5,7 +5,7 @@ import Nav from "./components/nav/nav"
 const Layout = () => {
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="container z-40 bg-background/30 backdrop-blur-sm">
+      <header className="container z-40">
         <Nav />
       </header>
       <main className="flex-1">
