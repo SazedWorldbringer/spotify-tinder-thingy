@@ -14,7 +14,7 @@ import { Button } from "../components/ui/button"
 import { Separator } from "../components/ui/separator"
 import { Switch } from "../components/ui/switch"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
@@ -27,23 +27,37 @@ export default function Matches({ className, ...props }) {
   const [count, setCount] = useState(0)
   const [ref, { width }] = useMeasure()
   const prev = usePrevious(count)
+  const [largeWindow, setLargeWindow] = useState(window.innerWidth < 768);
+
+  const updateMedia = () => {
+    setLargeWindow(window.innerWidth > 1024);
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia)
+  }, []);
 
   let direction = count > prev ? 1 : -1
 
   return (
     <div className="container">
-      <div className="flex justify-between px-4">
-        <button onClick={() => setCount(count - 1)}>
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-        <button onClick={() => setCount(count + 1)}>
-          <ChevronRight className="w-5 h-5" />
-        </button>
-      </div>
       <div
         ref={ref}
-        className="mt-8 flex justify-center w-full"
+        className="mt-8 flex justify-around items-center w-full"
       >
+        {
+          largeWindow ? (
+            <Button
+              variant="outline" 
+              onClick={() => setCount(count - 1)}
+              className="mr-[-3rem]"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </Button>
+          ) : null
+        }
+
         <AnimatePresence custom={{ direction, width }}>
           <motion.div
             key={count}
@@ -58,6 +72,18 @@ export default function Matches({ className, ...props }) {
             <Match colors={colors} count={count} />
           </motion.div>
         </AnimatePresence>
+
+        {
+          largeWindow ? (
+            <Button 
+              variant="outline" 
+              onClick={() => setCount(count + 1)}
+              className="ml-[-3rem]"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </Button>
+          ) : null
+        }
       </div>
     </div>
   )
