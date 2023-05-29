@@ -75,7 +75,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-[url('/img/mesh-gradient.png')] text-foreground;
+    @apply bg-[url('/img/bg-1.png')] text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
