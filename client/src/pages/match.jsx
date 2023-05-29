@@ -23,38 +23,6 @@ import useMeasure from "react-use-measure"
 
 import Match from "../components/match/match"
 
-
-const notifications = [
-  [
-    {
-      title: "Your call has been confirmed.",
-      description: "1 hour ago",
-    },
-    {
-      title: "You have a new message!",
-      description: "1 hour ago",
-    },
-    {
-      title: "Your subscription is expiring soon!",
-      description: "2 hours ago",
-    },
-  ],
-  [
-    {
-      title: "Life before death",
-      description: "1 hour ago",
-    },
-    {
-      title: "Strength before weakness",
-      description: "1 hour ago",
-    },
-    {
-      title: "Journey before destination",
-      description: "2 hours ago",
-    },
-  ]
-]
-
 export default function Matches({ className, ...props }) {
   const [count, setCount] = useState(0)
   const [ref, { width }] = useMeasure()
@@ -87,7 +55,7 @@ export default function Matches({ className, ...props }) {
             custom={{ direction, width }}
             className="w-full"
           >
-            <Match colors={colors} count={count} notifications={notifications} />
+            <Match colors={colors} count={count} />
           </motion.div>
         </AnimatePresence>
       </div>
