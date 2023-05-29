@@ -94,7 +94,7 @@ const Match = ({ className, ...props }) => {
 
 	return (
 		<Card className={cn(
-			"container lg:w-3/4 backdrop-blur-sm bg-card/30",
+			"container md:w-5/6 lg:w-3/4 backdrop-blur-sm bg-card/30",
 			className
 		)} {...props}>
 			<CardHeader className="flex-col justify-center items-center gap-5 text-center md:text-left md:flex-row md:justify-between">
