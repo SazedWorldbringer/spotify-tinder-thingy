@@ -150,7 +150,9 @@ const Match = ({ className, ...props }) => {
 							{songs.map((song, idx) => (
 								<li key={idx}>
 									<Song title={song.title} artist={song.artist} img={song.img} />
-									<Separator className="w-3/4 mx-auto" />
+									{!(idx == songs.length - 1)
+										? <Separator className="w-3/4 mx-auto" />
+										: null}
 								</li>
 							))}
 						</ul>
@@ -162,7 +164,9 @@ const Match = ({ className, ...props }) => {
 							{artists.map((artist, idx) => (
 								<li key={idx}>
 									<Artist name={artist.name} genres={artist.genres} img={artist.img} url={artist.url} />
-									<Separator className="w-3/4 mx-auto" />
+									{!(idx == songs.length - 1)
+										? <Separator className="w-3/4 mx-auto" />
+										: null}
 								</li>
 							))}
 						</ul>
