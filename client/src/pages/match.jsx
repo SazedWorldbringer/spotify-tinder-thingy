@@ -27,10 +27,10 @@ export default function Matches({ className, ...props }) {
   const [count, setCount] = useState(0)
   const [ref, { width }] = useMeasure()
   const prev = usePrevious(count)
-  const [largeWindow, setLargeWindow] = useState(window.innerWidth < 768);
+  const [smallWindow, setSmallWindow] = useState(window.innerWidth < 1024);
 
   const updateMedia = () => {
-    setLargeWindow(window.innerWidth > 1024);
+    setSmallWindow(window.innerWidth < 1024);
   }
 
   useEffect(() => {
@@ -47,11 +47,11 @@ export default function Matches({ className, ...props }) {
         className="mt-8 flex justify-around items-center w-full"
       >
         {
-          largeWindow ? (
+          !smallWindow ? (
             <Button
               variant="outline" 
               onClick={() => setCount(count - 1)}
-              className="mr-[-3rem]"
+              className="mr-[-10rem]"
             >
               <ChevronLeft className="w-5 h-5" />
             </Button>
@@ -74,11 +74,11 @@ export default function Matches({ className, ...props }) {
         </AnimatePresence>
 
         {
-          largeWindow ? (
+          !smallWindow ? (
             <Button 
               variant="outline" 
               onClick={() => setCount(count + 1)}
-              className="ml-[-3rem]"
+              className="ml-[-10rem]"
             >
               <ChevronRight className="w-5 h-5" />
             </Button>
