@@ -108,7 +108,7 @@ const Match = ({ className, ...props }) => {
 				)}
 				<div>
 					<CardTitle className="text-2xl">
-						Atharva Pardeshi
+						Atharva Pardeshi {count}
 					</CardTitle>
 					<CardDescription className="text-xl flex flex-col">
 						<Link target="_blank" to='https://open.spotify.com/user/s8a89d3sodmvkeq1um4uz09f0'>@sazed</Link>
