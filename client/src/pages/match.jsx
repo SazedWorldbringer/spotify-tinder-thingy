@@ -22,12 +22,18 @@ import { AnimatePresence, motion } from "framer-motion"
 import useMeasure from "react-use-measure"
 
 import Match from "../components/match/match"
+import api from "../api/api"
 
 export default function Matches({ className, ...props }) {
   const [count, setCount] = useState(0)
   const [ref, { width }] = useMeasure()
   const prev = usePrevious(count)
   const [smallWindow, setSmallWindow] = useState(window.innerWidth < 1024);
+
+  const handleClick = () => {
+    const session = api.getSession()
+    console.log(session)
+  }
 
   const updateMedia = () => {
     setSmallWindow(window.innerWidth < 1024);
@@ -44,47 +50,43 @@ export default function Matches({ className, ...props }) {
     <div className="container">
       <div
         ref={ref}
-        className="mt-8 flex justify-around items-center w-full"
+        className="relative sm:px-6 md:px-8 mt-8 flex justify-around items-center"
       >
-        {
-          !smallWindow ? (
-            <Button
-              variant="outline" 
-              onClick={() => setCount(count - 1)}
-              className="mr-[-10rem]"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </Button>
-          ) : null
-        }
-
-        <AnimatePresence custom={{ direction, width }}>
+        <AnimatePresence>
           <motion.div
+            initial={{ x: 500 }}
+            animate={{ x: 0 }}
+            exit={{ x: -500 }}
             key={count}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.5 }}
-            custom={{ direction, width }}
             className="w-full"
           >
             <Match colors={colors} count={count} />
           </motion.div>
         </AnimatePresence>
-
-        {
-          !smallWindow ? (
-            <Button 
-              variant="outline" 
-              onClick={() => setCount(count + 1)}
-              className="ml-[-10rem]"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </Button>
-          ) : null
-        }
+        <div>
+          {
+            !smallWindow ? (
+              <div>
+                <Button
+                  variant="outline"
+                  onClick={() => setCount(count - 1)}
+                  className=" z-10"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setCount(count + 1)}
+                  className=" z-10"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </Button>
+              </div>
+            ) : null
+          }
+        </div>
       </div>
+      <Button onClick={handleClick}>Get spotify data</Button>
     </div>
   )
 }
