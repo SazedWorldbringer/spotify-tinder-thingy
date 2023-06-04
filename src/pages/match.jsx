@@ -32,7 +32,8 @@ export default function Matches({ className, ...props }) {
 
   const handleClick = () => {
     const session = api.getSession()
-    console.log(session)
+    const oAuthExpiryDate = session.providerAccessTokenExpiry
+    console.log(oAuthExpiryDate)
   }
 
   const updateMedia = () => {
