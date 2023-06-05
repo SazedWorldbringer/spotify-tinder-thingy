@@ -4,7 +4,8 @@ import ErrorPage from './pages/error.jsx'
 import Matches from './pages/match.jsx'
 import InboxPage from './pages/inbox.jsx'
 import YouPage from './pages/you.jsx'
-import Login from './pages/login.jsx'
+import LoginPage from './pages/login.jsx'
+import RegisterPage from './pages/register.jsx'
 
 const router = createBrowserRouter([
   {
@@ -28,8 +29,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login />
+    element: <LoginPage />
   },
+  {
+    path: "/register",
+    element: <RegisterPage />
+  }
 ])
 
 const App = () => {
