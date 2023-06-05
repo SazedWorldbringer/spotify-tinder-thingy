@@ -1,6 +1,8 @@
 import { Link, NavLink } from "react-router-dom";
 import { navItems } from "./items";
 import { Headphones } from "lucide-react";
+import { cn } from "../../lib/utils";
+import { buttonVariants } from "../ui/button";
 
 function MainNav({ items }) {
 	return (
@@ -37,8 +39,10 @@ export default function Nav() {
 			<nav>
 				<Link
 					to="/login"
-					className={
-						"px-4"
+					className={cn(
+						"px-4",
+						buttonVariants({variant: "secondary"})
+						)
 					}
 				>
 					Login
