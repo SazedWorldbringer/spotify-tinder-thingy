@@ -16,7 +16,7 @@ export const Icons = {
   chevronRight: ChevronRight,
   sun: SunMedium,
   moon: Moon,
-  google: (...props) => (
+  google: (props) => (
     <svg role="img" viewBox="0 0 24 24" className="mr-2 h-4" {...props}>
       <path
         fill="currentColor"
