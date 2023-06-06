@@ -80,7 +80,9 @@ export function UserRegisterForm({ className, ...props }) {
               onChange={handlePasswordChange}
             />
           </div>
-          <Button disabled={isLoading}>
+          <Button
+            disabled={isLoading || !name || !email || !password}
+          >
             {isLoading && (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             )}
