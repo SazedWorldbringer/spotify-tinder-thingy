@@ -1,5 +1,5 @@
 import { Client as Appwrite, Databases, Account } from "appwrite"
-import { Server } from "../utils/config"
+import { Server } from "../lib/utils";
 
 let api = {
     sdk: null,
@@ -19,13 +19,17 @@ let api = {
         return api.sdk
     },
 
-    createAccount: () => {
-        api.provider().account.createOAuth2Session("spotify", `${window.location.origin}/you`, `${window.location.origin}/`, ['user-top-read', 'user-follow-read', 'user-read-currently-playing'])
+    createAccount: (email, password, name) => {
+        api.provider().account.create("unique()", email, password, name)
     },
 
     getAccount: () => {
         let account = api.provider().account
         return account.get()
+    },
+
+    createSession: (email, password) => {
+        return api.provider().account.createEmailSession(email, password)
     },
 
     getSession: () => {
