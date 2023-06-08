@@ -1,12 +1,19 @@
 import { useState } from "react";
 
-import { cn } from "../../lib/utils";
+import { Server, cn } from "../../lib/utils";
 
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Loader2 } from "lucide-react";
 import { Icons } from "../icons";
+import api from "../../api/api";
+
+import { Client } from "appwrite";
+
+const appwrite = new Client()
+appwrite
+  .setEndpoint(Server.endpoint)
+  .setProject(Server.project)
 
 export function UserRegisterForm({ className, ...props }) {
   const [isLoading, setIsLoading] = useState(false)
@@ -14,19 +21,13 @@ export function UserRegisterForm({ className, ...props }) {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
 
-  const handleNameChange = (event) => {
-    setName(event.target.value)
-  }
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    password: '',
+  })
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value)
-  }
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value)
-  }
-
-  const onSubmit = async (event) => {
+  const handleRegister = async (event) => {
     event.preventDefault()
     setIsLoading(true)
 
@@ -37,7 +38,7 @@ export function UserRegisterForm({ className, ...props }) {
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleRegister}>
         <div className="grid gap-2">
           <div className="grid gap-1">
             <Label className="sr-only" htmlFor="name">
@@ -51,7 +52,12 @@ export function UserRegisterForm({ className, ...props }) {
               autoComplete="name"
               autoCorrect="off"
               disabled={isLoading}
-              onChange={handleNameChange}
+              onChange={(e) => {
+                setUser({
+                  ...user,
+                  name: e.target.value
+                })
+              }}
             />
             <Label className="sr-only" htmlFor="email">
               Email
@@ -64,7 +70,12 @@ export function UserRegisterForm({ className, ...props }) {
               autoComplete="email"
               autoCorrect="off"
               disabled={isLoading}
-              onChange={handleEmailChange}
+              onChange={(e) => {
+                setUser({
+                  ...user,
+                  email: e.target.value
+                })
+              }}
             />
             <Label className="sr-only" htmlFor="password">
               Password
@@ -77,14 +88,19 @@ export function UserRegisterForm({ className, ...props }) {
               autoComplete="password"
               autoCorrect="off"
               disabled={isLoading}
-              onChange={handlePasswordChange}
+              onChange={(e)=> {
+                setUser({
+                  ...user,
+                  password: e.target.value
+                })
+              }}
             />
           </div>
           <Button
             disabled={isLoading || !name || !email || !password}
           >
             {isLoading && (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
             Sign In with Email
           </Button>
