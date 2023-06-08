@@ -5,11 +5,6 @@ import { buttonVariants } from "../components/ui/button"
 import { Icons } from "../components/icons"
 import { UserRegisterForm } from "../components/auth/user-register-form"
 
-export const metadata = {
-  title: "Create an account",
-  description: "Create an account to get started.",
-}
-
 export default function RegisterPage() {
   return (
     <div className="container grid h-screen w-screen flex-col items-center justify-center lg:max-w-none lg:grid-cols-2 lg:px-0">
