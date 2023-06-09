@@ -11,4 +11,5 @@ export const Server = {
 	project: import.meta.env.VITE_APPWRITE_PROJECT,
 	collectionID: import.meta.env.VITE_COLLECTION_ID,
 	databaseID: import.meta.env.VITE_DATABASE_ID,
+	apiKey: import.meta.env.VITE_APPWRITE_API_KEY
 }
