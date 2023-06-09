@@ -1,44 +1,18 @@
-import { Client as Appwrite, Databases, Account } from "appwrite"
+import { Client, Account, Databases, Functions, Storage } from "appwrite";
 import { Server } from "../lib/utils";
 
-let api = {
-    sdk: null,
+const client = new Client();
 
-    provider: () => {
-        if (api.sdk) {
-            return api.sdk
-        }
-        let appwrite = new Appwrite();
-        appwrite
-            .setEndpoint(Server.endpoint)
-            .setProject(Server.project)
-        const account = new Account(appwrite)
-        const database = new Databases(appwrite)
+client
+    .setEndpoint(Server.endpoint)
+    .setProject(Server.project)
 
-        api.sdk = { database, account }
-        return api.sdk
-    },
+const account = new Account(client)
 
-    createAccount: (email, password, name) => {
-        api.provider().account.create("unique()", email, password, name)
-    },
+const databases = new Databases(client)
 
-    getAccount: () => {
-        let account = api.provider().account
-        return account.get()
-    },
+const functions = new Functions(client)
 
-    createSession: (email, password) => {
-        return api.provider().account.createEmailSession(email, password)
-    },
+const storage = new Storage(client)
 
-    getSession: () => {
-        return api.provider().account.getSession("current")
-    },
-
-    deleteSession: () => {
-        return api.provider().account.deleteSession("current")
-    },
-}
-
-export default api
+export default { client, account, databases, functions, storage }
