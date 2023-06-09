@@ -1,19 +1,13 @@
 import { useState } from "react";
 
-import { Server, cn } from "../../lib/utils";
+import { cn } from "../../lib/utils";
 
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Icons } from "../icons";
-import api from "../../api/api";
 
-import { Client } from "appwrite";
-
-const appwrite = new Client()
-appwrite
-  .setEndpoint(Server.endpoint)
-  .setProject(Server.project)
+import api from "../../api/api"
 
 export function UserRegisterForm({ className, ...props }) {
   const [isLoading, setIsLoading] = useState(false)
@@ -27,6 +21,14 @@ export function UserRegisterForm({ className, ...props }) {
   const handleRegister = async (event) => {
     event.preventDefault()
     setIsLoading(true)
+
+    api.account.create("unique()", user.email, user.password, user.name)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
 
     setTimeout(() => {
       setIsLoading(false)
@@ -85,7 +87,7 @@ export function UserRegisterForm({ className, ...props }) {
               autoComplete="password"
               autoCorrect="off"
               disabled={isLoading}
-              onChange={(e)=> {
+              onChange={(e) => {
                 setUser({
                   ...user,
                   password: e.target.value
@@ -94,7 +96,7 @@ export function UserRegisterForm({ className, ...props }) {
             />
           </div>
           <Button
-            disabled={isLoading || !name || !email || !password}
+            disabled={isLoading || !user.name || !user.email || !user.password}
           >
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
