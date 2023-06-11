@@ -6,6 +6,7 @@ import InboxPage from './pages/inbox.jsx'
 import YouPage from './pages/you.jsx'
 import LoginPage from './pages/login.jsx'
 import RegisterPage from './pages/register.jsx'
+import { Toaster } from './components/ui/toaster.jsx'
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,7 @@ const App = () => {
   return (
     <div>
       <RouterProvider router={router} />
+      <Toaster />
     </div>
   )
 }
