@@ -8,6 +8,7 @@ import { Button } from "../ui/button";
 import { Icons } from "../icons";
 
 import api from "../../api/api"
+import { useNavigate } from "react-router-dom";
 
 export function UserRegisterForm({ className, ...props }) {
   const [isLoading, setIsLoading] = useState(false)
@@ -18,13 +19,16 @@ export function UserRegisterForm({ className, ...props }) {
     password: '',
   })
 
-  const handleRegister = async (event) => {
+  const navigate = useNavigate()
+
+  const onSubmit = async (event) => {
     event.preventDefault()
     setIsLoading(true)
 
-    api.account.create("unique()", form.email, form.password, form.name)
+    api.register(form.email, form.password, form.name)
       .then(response => {
         console.log(response)
+        navigate('/login')
       })
       .catch(error => {
         console.log(error)
@@ -37,15 +41,15 @@ export function UserRegisterForm({ className, ...props }) {
 
   const handleInputChange = (event) => {
     const {
-      target: {name, value}
+      target: { name, value }
     } = event
 
-    setForm((currState) => ({...currState, [name]: value}))
+    setForm((currState) => ({ ...currState, [name]: value }))
   }
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
-      <form onSubmit={handleRegister}>
+      <form onSubmit={onSubmit}>
         <div className="grid gap-2">
           <div className="grid gap-1">
             <Label className="sr-only" htmlFor="name">
