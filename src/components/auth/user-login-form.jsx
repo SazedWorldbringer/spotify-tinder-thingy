@@ -1,11 +1,16 @@
 import { useState } from "react";
+
 import { cn } from "../../lib/utils";
+
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
 import { Icons } from "../icons";
-import { Client , Account } from "appwrite";
+
+import { Client, Account } from "appwrite";
+import api from "../../api/api";
+import { useNavigate } from "react-router-dom";
 
 
 export function UserLoginForm({ className, ...props }) {
@@ -15,9 +20,20 @@ export function UserLoginForm({ className, ...props }) {
     password: ''
   })
 
+  const navigate = useNavigate()
+
   const onSubmit = async (event) => {
     event.preventDefault()
     setIsLoading(true)
+
+    api.login(form.email, form.password)
+      .then(response => {
+        console.log(response)
+        navigate('/')
+      })
+      .catch(error => {
+        console.log(error)
+      })
 
     setTimeout(() => {
       setIsLoading(false)
@@ -30,14 +46,14 @@ export function UserLoginForm({ className, ...props }) {
     const account = new Account(client);
 
     client
-        .setEndpoint('https://cloud.appwrite.io/v1' )
-        .setProject('647250ae674a4833cbcf')
+      .setEndpoint('https://cloud.appwrite.io/v1')
+      .setProject('647250ae674a4833cbcf')
 
     account.createOAuth2Session('google',
-    'http://localhost:5173/',
-    'http://localhost:5173/login')
+      'http://localhost:5173/',
+      'http://localhost:5173/login')
   }
-  
+
   const handleInputChange = (event) => {
     const {
       target = { name, value }

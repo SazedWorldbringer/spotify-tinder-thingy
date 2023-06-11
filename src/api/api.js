@@ -19,4 +19,12 @@ const googleSession = () => {
     account.createOAuth2Session('google');
 }
 
-export default { client, account, databases, functions, storage , googleSession }
+const register = (email, password, name) => {
+    return account.create("unique()", email, password, name)
+}
+
+const login = (email, password) => {
+    return account.createEmailSession(email, password)
+}
+
+export default { client, account, databases, functions, storage, googleSession, login, register }
