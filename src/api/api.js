@@ -15,4 +15,8 @@ const functions = new Functions(client)
 
 const storage = new Storage(client)
 
-export default { client, account, databases, functions, storage }
+const googleSession = () => {
+    account.createOAuth2Session('google');
+}
+
+export default { client, account, databases, functions, storage , googleSession }
