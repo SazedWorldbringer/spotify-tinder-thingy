@@ -9,6 +9,7 @@ import { Icons } from "../icons";
 
 import api from "../../api/api"
 import { useNavigate } from "react-router-dom";
+import { toast } from "../ui/use-toast";
 
 export function UserRegisterForm({ className, ...props }) {
   const [isLoading, setIsLoading] = useState(false)
@@ -28,6 +29,10 @@ export function UserRegisterForm({ className, ...props }) {
     api.register(form.email, form.password, form.name)
       .then(response => {
         console.log(response)
+        toast({
+          title: "Account created successfully!",
+          description: "Login to your account.",
+        })
         navigate('/login')
       })
       .catch(error => {
