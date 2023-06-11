@@ -1,12 +1,12 @@
 import { useState } from "react";
-
 import { cn } from "../../lib/utils";
-
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
 import { Icons } from "../icons";
+import { Client , Account } from "appwrite";
+
 
 export function UserLoginForm({ className, ...props }) {
   const [isLoading, setIsLoading] = useState(false)
@@ -24,6 +24,20 @@ export function UserLoginForm({ className, ...props }) {
     }, 3000)
   }
 
+  const googleSession = () => {
+    const client = new Client();
+
+    const account = new Account(client);
+
+    client
+        .setEndpoint('https://cloud.appwrite.io/v1' )
+        .setProject('647250ae674a4833cbcf')
+
+    account.createOAuth2Session('google',
+    'http://localhost:5173/',
+    'http://localhost:5173/login')
+  }
+  
   const handleInputChange = (event) => {
     const {
       target = { name, value }
@@ -87,7 +101,7 @@ export function UserLoginForm({ className, ...props }) {
           </span>
         </div>
       </div>
-      <Button variant="outline" type="button" disabled={isLoading}>
+      <Button variant="outline" type="button" disabled={isLoading} onClick={googleSession} >
         {isLoading ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
         ) : (
