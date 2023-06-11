@@ -10,8 +10,10 @@ import { Client , Account } from "appwrite";
 
 export function UserLoginForm({ className, ...props }) {
   const [isLoading, setIsLoading] = useState(false)
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
+  const [form, setForm] = useState({
+    email: '',
+    password: ''
+  })
 
   const onSubmit = async (event) => {
     event.preventDefault()
@@ -35,13 +37,14 @@ export function UserLoginForm({ className, ...props }) {
     'http://localhost:5173/',
     'http://localhost:5173/login')
   }
+  
+  const handleInputChange = (event) => {
+    const {
+      target = { name, value }
+    } = event
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value)
-  }
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value)
+    setForm((currState) => ({ ...currState, [target.name]: target.value }))
+    console.log(form)
   }
 
   return (
@@ -56,11 +59,12 @@ export function UserLoginForm({ className, ...props }) {
               id="email"
               placeholder="name@example.com"
               type="email"
+              name="email"
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect="off"
               disabled={isLoading}
-              onChange={handleEmailChange}
+              onChange={handleInputChange}
             />
             <Label className="sr-only" htmlFor="password">
               Password
@@ -69,15 +73,16 @@ export function UserLoginForm({ className, ...props }) {
               id="password"
               placeholder="password"
               type="password"
+              name="password"
               autoCapitalize="none"
               autoComplete="password"
               autoCorrect="off"
               disabled={isLoading}
-              onChange={handlePasswordChange}
+              onChange={handleInputChange}
             />
           </div>
           <Button
-            disabled={isLoading || !email || !password}
+            disabled={isLoading || !form.email || !form.password}
           >
             {isLoading && (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

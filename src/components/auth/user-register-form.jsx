@@ -12,7 +12,7 @@ import api from "../../api/api"
 export function UserRegisterForm({ className, ...props }) {
   const [isLoading, setIsLoading] = useState(false)
 
-  const [user, setUser] = useState({
+  const [form, setForm] = useState({
     name: '',
     email: '',
     password: '',
@@ -22,7 +22,7 @@ export function UserRegisterForm({ className, ...props }) {
     event.preventDefault()
     setIsLoading(true)
 
-    api.account.create("unique()", user.email, user.password, user.name)
+    api.account.create("unique()", form.email, form.password, form.name)
       .then(response => {
         console.log(response)
       })
@@ -33,6 +33,14 @@ export function UserRegisterForm({ className, ...props }) {
     setTimeout(() => {
       setIsLoading(false)
     }, 3000)
+  }
+
+  const handleInputChange = (event) => {
+    const {
+      target: {name, value}
+    } = event
+
+    setForm((currState) => ({...currState, [name]: value}))
   }
 
   return (
@@ -47,16 +55,12 @@ export function UserRegisterForm({ className, ...props }) {
               id="name"
               placeholder="John Doe"
               type="name"
+              name="name"
               autoCapitalize="none"
               autoComplete="name"
               autoCorrect="off"
               disabled={isLoading}
-              onChange={(e) => {
-                setUser({
-                  ...user,
-                  name: e.target.value
-                })
-              }}
+              onChange={handleInputChange}
             />
             <Label className="sr-only" htmlFor="email">
               Email
@@ -65,16 +69,12 @@ export function UserRegisterForm({ className, ...props }) {
               id="email"
               placeholder="name@example.com"
               type="email"
+              name="email"
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect="off"
               disabled={isLoading}
-              onChange={(e) => {
-                setUser({
-                  ...user,
-                  email: e.target.value
-                })
-              }}
+              onChange={handleInputChange}
             />
             <Label className="sr-only" htmlFor="password">
               Password
@@ -83,20 +83,16 @@ export function UserRegisterForm({ className, ...props }) {
               id="password"
               placeholder="password"
               type="password"
+              name="password"
               autoCapitalize="none"
               autoComplete="password"
               autoCorrect="off"
               disabled={isLoading}
-              onChange={(e) => {
-                setUser({
-                  ...user,
-                  password: e.target.value
-                })
-              }}
+              onChange={handleInputChange}
             />
           </div>
           <Button
-            disabled={isLoading || !user.name || !user.email || !user.password}
+            disabled={isLoading || !form.name || !form.email || !form.password}
           >
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
