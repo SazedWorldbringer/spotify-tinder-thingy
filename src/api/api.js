@@ -15,10 +15,6 @@ const functions = new Functions(client)
 
 const storage = new Storage(client)
 
-const googleSession = () => {
-    account.createOAuth2Session('google');
-}
-
 const register = (email, password, name) => {
     return account.create("unique()", email, password, name)
 }
