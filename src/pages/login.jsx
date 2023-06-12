@@ -4,6 +4,7 @@ import { cn } from "../lib/utils"
 import { buttonVariants } from "../components/ui/button"
 import { Icons } from "../components/icons"
 import { UserLoginForm } from "../components/auth/user-login-form"
+import SpotifyAuth from "../components/auth/spotify-auth"
 
 export default function LoginPage() {
   return (
@@ -40,6 +41,7 @@ export default function LoginPage() {
           </Link>
         </p>
       </div>
+    <SpotifyAuth/>
     </div>
   )
 }
