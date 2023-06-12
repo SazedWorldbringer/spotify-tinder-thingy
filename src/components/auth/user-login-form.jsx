@@ -6,14 +6,12 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
-import { Icons } from "../icons";
 
 import { Client, Account } from "appwrite";
 import api from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../ui/use-toast";
 import { ToastAction } from "../ui/toast";
-
 
 export function UserLoginForm({ className, ...props }) {
   const [isLoading, setIsLoading] = useState(false)
@@ -51,20 +49,6 @@ export function UserLoginForm({ className, ...props }) {
     setTimeout(() => {
       setIsLoading(false)
     }, 3000)
-  }
-
-  const googleSession = () => {
-    const client = new Client();
-
-    const account = new Account(client);
-
-    client
-      .setEndpoint('https://cloud.appwrite.io/v1')
-      .setProject('647250ae674a4833cbcf')
-
-    account.createOAuth2Session('google',
-      'http://localhost:5173/',
-      'http://localhost:5173/login')
   }
 
   const handleInputChange = (event) => {
@@ -120,24 +104,7 @@ export function UserLoginForm({ className, ...props }) {
           </Button>
         </div>
       </form>
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            Or continue with
-          </span>
-        </div>
-      </div>
-      <Button variant="outline" type="button" disabled={isLoading} onClick={googleSession} >
-        {isLoading ? (
-          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          <Icons.google className="mr-2 h-4 w-4" />
-        )}
-        Google
-      </Button>
+      <span className="inset-0 w-full border-t" />
     </div>
   )
 }
