@@ -23,4 +23,4 @@ const login = (email, password) => {
     return account.createEmailSession(email, password)
 }
 
-export default { client, account, databases, functions, storage, googleSession, login, register }
+export default { client, account, databases, functions, storage, login, register }
